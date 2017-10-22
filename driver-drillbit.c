@@ -194,7 +194,7 @@ static bool usb_read_simple_response(struct cgpu_info *drillbit, char command, e
 		return false;
 	}
 	if (response != command) {
-		drvlog(LOG_ERR, "Got unexpected response %c to command %c", response, command);	   
+		drvlog(LOG_ERR, "Got unexpected response %c to command %c", response, command);
 		return false;
 	}
 	return true;

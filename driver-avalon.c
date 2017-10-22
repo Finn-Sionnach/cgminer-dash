@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Con Kolivas <kernel@kolivas.org>
+ * Copyright 2013-2014 Con Kolivas <kernel@kolivas.org>
  * Copyright 2012-2013 Xiangfu <xiangfu@openmobilefree.com>
  * Copyright 2012 Luke Dashjr
  * Copyright 2012 Andrew Smith
@@ -31,6 +31,7 @@
   #endif
 #else
   #include "compat.h"
+  #include <windows.h>
   #include <io.h>
 #endif
 
@@ -287,6 +288,13 @@ static void wait_avalon_ready(struct cgpu_info *avalon)
 	while (avalon_buffer_full(avalon)) {
 		cgsleep_ms(40);
 	}
+}
+
+#define AVALON_CTS    (1 << 4)
+
+static inline bool avalon_cts(char c)
+{
+	return (c & AVALON_CTS);
 }
 
 static int avalon_read(struct cgpu_info *avalon, char *buf, size_t bufsize, int ep)
@@ -908,7 +916,7 @@ static void avalon_detect(bool __maybe_unused hotplug)
 
 static void avalon_init(struct cgpu_info *avalon)
 {
-	applog(LOG_INFO, "Avalon: Opened on %s", avalon->device_path);
+	applog(LOG_DEBUG, "Avalon: Opened on %s", avalon->device_path);
 }
 
 static struct work *avalon_valid_result(struct cgpu_info *avalon, struct avalon_result *ar)
@@ -922,7 +930,7 @@ static void avalon_update_temps(struct cgpu_info *avalon, struct avalon_info *in
 
 static void avalon_inc_nvw(struct avalon_info *info, struct thr_info *thr)
 {
-	applog(LOG_INFO, "%s%d: No matching work - HW error",
+	applog(LOG_DEBUG, "%s%d: No matching work - HW error",
 	       thr->cgpu->drv->name, thr->cgpu->device_id);
 
 	inc_hw_errors(thr);
@@ -1163,7 +1171,7 @@ static void *avalon_send_tasks(void *userdata)
 		end_count = start_count + avalon_get_work_count;
 		for (i = start_count, j = 0; i < end_count; i++, j++) {
 			if (avalon_buffer_full(avalon)) {
-				applog(LOG_INFO,
+				applog(LOG_DEBUG,
 				       "%s%i: Buffer full after only %d of %d work queued",
 					avalon->drv->name, avalon->device_id, j, avalon_get_work_count);
 				break;
@@ -1432,7 +1440,7 @@ static void avalon_update_temps(struct cgpu_info *avalon, struct avalon_info *in
 				struct avalon_result *ar)
 {
 	record_temp_fan(avalon, info, ar);
-	applog(LOG_INFO,
+	applog(LOG_DEBUG,
 		"Avalon: Fan1: %d/m, Fan2: %d/m, Fan3: %d/m\t"
 		"Temp1: %dC, Temp2: %dC, Temp3: %dC, TempMAX: %.0fC",
 		info->fan0, info->fan1, info->fan2,
@@ -1696,12 +1704,10 @@ struct device_drv avalon_drv = {
 	.name = "AVA",
 	.drv_detect = avalon_detect,
 	.thread_prepare = avalon_prepare,
-
 	.hash_work = hash_queued_work,
 	.queue_full = avalon_fill,
 	.scanwork = avalon_scanhash,
 	.flush_work = avalon_flush_work,
-
 	.get_api_stats = avalon_api_stats,
 	.get_statline_before = get_avalon_statline_before,
 	.set_device = avalon_set_device,

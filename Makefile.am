@@ -1,18 +1,14 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-JANSSON_CPPFLAGS= -I$(top_builddir)/compat/jansson-2.9/src -I$(top_srcdir)/compat/jansson-2.9/src
+X11_CPPFLAGS = -I x11
+
+JANSSON_CPPFLAGS= -I$(top_builddir)/compat/jansson-2.6/src -I$(top_srcdir)/compat/jansson-2.6/src
 
 if WANT_USBUTILS
-USBUTILS_CPPFLAGS = `pkg-config libusb-1.0 --libs --cflags`
+USBUTILS_CPPFLAGS = -I$(top_builddir)/compat/libusb-1.0/libusb -I$(top_srcdir)/compat/libusb-1.0/libusb
 else
 USBUTILS_CPPFLAGS =
-endif
-
-if STATIC_CURL
-LIBCURL_CPPFLAGS = -DCURL_STATICLIB
-else
-LIBCURL_CPPFLAGS =
 endif
 
 EXTRA_DIST	= example.conf linux-usb-cgminer \
@@ -22,17 +18,17 @@ EXTRA_DIST	= example.conf linux-usb-cgminer \
 		  bitforce-firmware-flash.c hexdump.c ASIC-README \
 		  01-cgminer.rules
 
-SUBDIRS		= lib compat ccan
+SUBDIRS		= lib compat ccan x11
 
-cgminer_CPPFLAGS = $(PTHREAD_FLAGS) -fno-strict-aliasing $(JANSSON_CPPFLAGS) $(USBUTILS_CPPFLAGS) $(LIBCURL_CPPFLAGS)
+cgminer_CPPFLAGS = $(PTHREAD_FLAGS) -fno-strict-aliasing $(JANSSON_CPPFLAGS) $(USBUTILS_CPPFLAGS)
 
 bin_PROGRAMS	= cgminer
 
 cgminer_LDFLAGS	= $(PTHREAD_FLAGS)
 cgminer_LDADD	= $(DLOPEN_FLAGS) @LIBCURL_LIBS@ @JANSSON_LIBS@ @PTHREAD_LIBS@ \
 		  @NCURSES_LIBS@ @PDCURSES_LIBS@ @WS2_LIBS@ \
-		  @LIBUSB_LIBS@ @MM_LIBS@ @RT_LIBS@ @LIBSYSTEMD_LIBS@ \
-		  @MATH_LIBS@ lib/libgnu.a ccan/libccan.a
+		  @LIBUSB_LIBS@ @MM_LIBS@ @RT_LIBS@ \
+		  @MATH_LIBS@ lib/libgnu.a ccan/libccan.a x11/libx11.a
 
 cgminer_CPPFLAGS += -I$(top_builddir)/lib -I$(top_srcdir)/lib
 
@@ -99,19 +95,6 @@ if HAS_BITFURY
 cgminer_SOURCES += driver-bitfury.c driver-bitfury.h
 endif
 
-if HAS_BITFURY16
-cgminer_SOURCES += bf16-bitfury16.c bf16-bitfury16.h
-cgminer_SOURCES += bf16-brd-control.c bf16-brd-control.h
-cgminer_SOURCES += bf16-communication.c bf16-communication.h
-cgminer_SOURCES += bf16-ctrldevice.c bf16-ctrldevice.h
-cgminer_SOURCES += bf16-device.h
-cgminer_SOURCES += bf16-gpiodevice.c bf16-gpiodevice.h
-cgminer_SOURCES += bf16-mspcontrol.c bf16-mspcontrol.h
-cgminer_SOURCES += bf16-spidevice.c bf16-spidevice.h
-cgminer_SOURCES += bf16-uartdevice.c bf16-uartdevice.h
-cgminer_SOURCES += driver-bitfury16.c driver-bitfury16.h
-endif
-
 if HAS_BITMINE_A1
 cgminer_SOURCES += driver-SPI-bitmine-A1.c
 cgminer_SOURCES += spi-context.c spi-context.h
@@ -161,32 +144,29 @@ if HAS_AVALON4
 cgminer_SOURCES += driver-avalon4.c driver-avalon4.h
 endif
 
-if HAS_AVALON7
-cgminer_SOURCES += driver-avalon7.c driver-avalon7.h
-endif
-
-if NEED_I2C_CONTEXT
-cgminer_SOURCES += i2c-context.c
-endif
-
-if HAS_AVALON_MINER
-cgminer_SOURCES += driver-avalon-miner.c driver-avalon-miner.h
-endif
-
 if HAS_MINION
 cgminer_SOURCES += driver-minion.c
 endif
 
-if HAS_ANT_S1
+if HAS_BMSC
+cgminer_SOURCES += driver-bmsc.c
+endif
+
+if HAS_BITMAIN
 cgminer_SOURCES += driver-bitmain.c driver-bitmain.h
 endif
 
-if HAS_ANT_S2
-cgminer_SOURCES += driver-bitmain.c driver-bitmain.h
+if HAS_BITMAIN_C5
+cgminer_SOURCES += driver-btm-c5.c driver-btm-c5.h sha2_c5.c sha2_c5.h
 endif
 
-if HAS_ANT_S3
-cgminer_SOURCES += driver-bitmain.c driver-bitmain.h
+if HAS_BITMAIN_L3
+cgminer_SOURCES += driver-btm-L3.c driver-btm-L3.h 
+endif
+
+if HAS_BITMAIN_D1
+cgminer_SOURCES += driver-btm-DASH.c driver-btm-DASH.h 
+cgminer_CPPFLAGS += $(X11_CPPFLAGS)
 endif
 
 if HAS_MODMINER

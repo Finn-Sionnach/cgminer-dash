@@ -34,6 +34,10 @@
 
 #include "config.h"
 
+#ifdef WIN32
+#include <windows.h>
+#endif
+
 #include "compat.h"
 #include "miner.h"
 #include "driver-spondoolies-sp10-p.h"
@@ -95,7 +99,7 @@ static int init_socket(void)
 	struct sockaddr_un address;
 
 	if (socket_fd < 0) {
-		printf("socket() failed\n");
+		applog(LOG_ERR, "socket() failed\n");
 		perror("Err:");
 		return 0;
 	}
@@ -107,7 +111,7 @@ static int init_socket(void)
 	sprintf(address.sun_path, MINERGATE_SOCKET_FILE);
 
 	if(connect(socket_fd, (struct sockaddr *) &address, sizeof(struct sockaddr_un))) {
-		printf("connect() failed\n");
+		applog(LOG_ERR,"connect() failed\n");
 		perror("Err:");
 		return 0;
 	}
@@ -139,7 +143,7 @@ static bool spondoolies_flush_queue(struct spond_adapter* a, bool flush_queue)
 
 static void spondoolies_detect(__maybe_unused bool hotplug)
 {
-	struct cgpu_info *cgpu = cgcalloc(1, sizeof(*cgpu));
+	struct cgpu_info *cgpu = calloc(1, sizeof(*cgpu));
 	struct device_drv *drv = &sp10_drv;
 	struct spond_adapter *a;
 
@@ -151,7 +155,9 @@ static void spondoolies_detect(__maybe_unused bool hotplug)
 	cgpu->drv = drv;
 	cgpu->deven = DEV_ENABLED;
 	cgpu->threads = 1;
-	cgpu->device_data = cgcalloc(sizeof(struct spond_adapter), 1);
+	cgpu->device_data = calloc(sizeof(struct spond_adapter), 1);
+	if (unlikely(!(cgpu->device_data)))
+		quit(1, "Failed to calloc cgpu_info data");
 	a = cgpu->device_data;
 	a->cgpu = (void *)cgpu;
 	a->adapter_state = ADAPTER_STATE_OPERATIONAL;
@@ -339,8 +345,8 @@ static void spond_poll_stats(struct cgpu_info *spond, struct spond_adapter *a)
 	spond->temp = (a->rear_temp_top + a->rear_temp_bot)/2;
 }
 
-// Return completed work to submit_nonce() and work_completed() 
-// struct timeval last_force_queue = {0};  
+// Return completed work to submit_nonce() and work_completed()
+// struct timeval last_force_queue = {0};
 static int64_t spond_scanhash(struct thr_info *thr)
 {
 	struct cgpu_info *cgpu = thr->cgpu;

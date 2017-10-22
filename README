@@ -97,9 +97,6 @@ Optional:
 	curses dev library
 	(libncurses5-dev or libpdcurses on WIN32 for text user interface)
 
-	libusb-1 dev library (libusb-1.0-0-dev)
-	(This is only required for USB device support)
-
 	libudev dev library (libudev-dev)
 	(This is only required for USB device support and is linux only)
 
@@ -107,20 +104,21 @@ If building from git:
 	autoconf
 	automake
 
+If building on Red Hat:
+        sudo yum install autoconf automake autoreconf libtool openssl-compat-bitcoin-devel.x86_64 \
+                         curl libcurl libcurl-devel openssh
+
 If building on Ubuntu:
 	sudo apt-get install build-essential autoconf automake libtool pkg-config \
-                             libcurl4-openssl-dev libudev-dev libusb-1.0-0-dev \
-                             libncurses5-dev
+                             libcurl3-dev libudev-dev
 
 CGMiner specific configuration options:
-  --enable-ants1          Compile support for Antminer S1 Bitmain (default
-                          disabled)
-  --enable-ants2          Compile support for Antminer S2 Bitmain (default
-                          disabled)
+  --enable-bitmain-D1     Compile support for BitMain DASH miner(default disabled)
+  --enable-bmsc           Compile support for BitMain Single Chain(default disabled)
+  --enable-bitmain        Compile support for BitMain Multi Chain(default disabled)
   --enable-avalon         Compile support for Avalon (default disabled)
-  --enable-avalon2        Compile support for Avalon2/3 (default disabled)
-  --enable-avalon4        Compile support for Avalon4/4.1/6 (default disabled)
-  --enable-avalon7        Compile support for Avalon7 (default disabled)
+  --enable-avalon2        Compile support for Avalon2 (default disabled)
+  --enable-avalon4        Compile support for Avalon4 (default disabled)
   --enable-bab            Compile support for BlackArrow Bitfury (default
                           disabled)
   --enable-bflsc          Compile support for BFL ASICs (default disabled)
@@ -145,12 +143,11 @@ CGMiner specific configuration options:
                           disabled)
   --enable-sp30           Compile support for Spondoolies SP30 (default
                           disabled)
-  --disable-libcurl       Disable building with libcurl for GBT support
-  --enable-libsystemd     Compile support for system watchdog and status
-                          notifications (default disabled)
+  --disable-libcurl       Disable building with libcurl for getwork and GBT
+                          support
   --without-curses        Compile support for curses TUI (default enabled)
-  --with-system-jansson   Compile against dynamic system jansson (default use
-                          included static jansson)
+  --with-system-libusb    Compile against dynamic system libusb (default use
+                          included static libusb)
 
 Basic *nix build instructions:
 	To actually build:
@@ -195,7 +192,7 @@ Options for both config file and command line:
 --api-network       Allow API (if enabled) to listen on/for any address, default: only 127.0.0.1
 --api-port <arg>    Port number of miner API (default: 4028)
 --au3-freq <arg>    Set AntminerU3 frequency in MHz, range 100-250 (default: 225.0)
---au3-volt <arg>    Set AntminerU3 voltage in mv, range 725-850, 0 to not set (default: 775)
+--au3-volt <arg>    Set AntminerU3 voltage in mv, range 725-850, 0 to not set (default: 750)
 --avalon-auto       Adjust avalon overclock frequency dynamically for best hashrate
 --avalon-cutoff <arg> Set avalon overheat cut off temperature (default: 60)
 --avalon-fan <arg>  Set fanspeed percentage for avalon, single value or range (default: 20-100)
@@ -217,40 +214,6 @@ Options for both config file and command line:
 --avalon4-ntime-offset <arg> Set Avalon4 MM ntime rolling max offset (default: 4)
 --avalon4-aucspeed <arg> Set Avalon4 AUC IIC bus speed (default: 400000)
 --avalon4-aucxdelay <arg> Set Avalon4 AUC IIC xfer read delay, 4800 ~= 1ms (default: 9600)
---avalon4-miningmode <arg> Set Avalon4 mining mode(0:custom, 1:eco, 2:normal, 3:turbo (default: 0)
---avalon4-freezesafe Make Avalon4 running as a radiator when stratum server failed
---avalon4-ntcb <arg> Set Avalon4 MM NTC B value (default: 3450)
---avalon4-freq-min <arg> Set minimum frequency for Avalon4 (default: 100)
---avalon4-freq-max <arg> Set maximum frequency for Avalon4 (default: 1000)
---avalon4-noncecheck-off Disable A3218 inside nonce check function
---avalon4-smart-speed <arg> Set smart speed, range 0-3. 0 means Disable (default: 2)
---avalon4-speed-bingo <arg> Set A3218 speed bingo for smart speed mode 1 (default: 255)
---avalon4-speed-error <arg> Set A3218 speed error for smart speed mode 1 (default: 3)
---avalon4-least-pll <arg> Set least pll check threshold for smart speed mode 2 (default: 768)
---avalon4-most-pll <arg> Set most pll check threshold for smart speed mode 2 (default: 256)
---avalon7-voltage   Set Avalon7 default core voltage, in millivolts, step: 78
---avalon7-voltage-level Set Avalon7 default level of core voltage, range:[0, 15], step: 1
---avalon7-voltage-offset Set Avalon7 default offset of core voltage, range:[-2, 1], step: 1
---avalon7-freq      Set Avalon7 default frequency, range:[24, 1404], step: 12, example: 500
---avalon7-freq-sel <arg> Set Avalon7 default frequency select, range:[0, 5], step: 1, example: 3 (default: 0)
---avalon7-fan       Set Avalon7 target fan speed, range:[0, 100], step: 1, example: 0-100
---avalon7-temp <arg> Set Avalon7 target temperature, range:[0, 100] (default: 99)
---avalon7-polling-delay <arg> Set Avalon7 polling delay value (ms) (default: 20)
---avalon7-aucspeed <arg> Set AUC3 IIC bus speed (default: 400000)
---avalon7-aucxdelay <arg> Set AUC3 IIC xfer read delay, 4800 ~= 1ms (default: 19200)
---avalon7-smart-speed <arg> Set Avalon7 smart speed, range 0-1. 0 means Disable (default: 1)
---avalon7-th-pass <arg> Set A3212 th pass value (default: 162)
---avalon7-th-fail <arg> Set A3212 th fail value (default: 10921)
---avalon7-th-init <arg> Set A3212 th init value (default: 32767)
---avalon7-th-ms <arg> Set A3212 th ms value (default: 1)
---avalon7-th-timeout <arg> Set A3212 th timeout value (default: 0)
---avalon7-iic-detect Enable Avalon7 detect through iic controller
---avalon7-freqadj-time <arg> Set Avalon7 check interval when run in AVA7_FREQ_TEMPADJ_MODE (default: 60)
---avalon7-delta-temp <arg> Set Avalon7 delta temperature when reset freq in AVA7_FREQ_TEMPADJ_MODE (default: 0)
---avalon7-delta-freq <arg> Set Avalon7 delta freq when adjust freq in AVA7_FREQ_TEMPADJ_MODE (default: 100)
---avalon7-freqadj-temp <arg> Set Avalon7 check temperature when run into AVA7_FREQ_TEMPADJ_MODE (default: 104)
---avalon7-nonce-mask <arg> Set A3212 nonce mask, range 24-32. (default: 31)
---no-avalon7-asic-debug Disable A3212 debug.
 --bab-options <arg> Set BaB options max:def:min:up:down:hz:delay:trf
 --balance           Change multipool strategy from failover to even share balance
 --benchfile <arg>   Run cgminer in benchmark mode using a work file - produces no shares
@@ -263,30 +226,24 @@ Options for both config file and command line:
 --bitburner-fury-options <arg> Override avalon-options for BitBurner Fury boards baud:miners:asic:timeout:freq
 --bitburner-voltage <arg> Set BitBurner (Avalon) core voltage, in millivolts
 --bitmain-auto      Adjust bitmain overclock frequency dynamically for best hashrate
---bitmain-cutoff <arg> Set bitmain overheat cut off temperature
---bitmain-fan <arg> Set fanspeed percentage for bitmain, single value or range (default: 20-100)
---bitmain-freq <arg> Set bitmain freq options timeout:freq:regdata
+--bitmain-cutoff    Set bitmain overheat cut off temperature
+--bitmain-fan       Set fanspeed percentage for bitmain, single value or range (default: 20-100)
+--bitmain-freq      Set frequency range for bitmain-auto, single value or range
 --bitmain-hwerror   Set bitmain device detect hardware error
---bitmain-options <arg> Set bitmain options baud:miners:asic:timeout:freq:regdata
---bitmain-temp <arg> Set bitmain target temperature
---bitmain-workdelay <arg> Set bitmain work delay (ms) 0-100
---bitmain-voltage <arg> Set bitmain voltage - S2/S3 only
---bitmain-dev <arg> Set bitmain device - S2 only
---bitmainbeeper     Set bitmain beeper ringing
---bitmaintempoverctrl Set bitmain stop runing when temprerature is over 80 degree Celsius
+--bitmain-options   Set bitmain options baud:miners:asic:timeout:freq
+--bitmain-temp      Set bitmain target temperature
 --bxf-bits <arg>    Set max BXF/HXF bits for overclocking (default: 54)
 --bxf-temp-target <arg> Set target temperature for BXF/HXF devices (default: 82)
 --bxm-bits <arg>    Set BXM bits for overclocking (default: 54)
 --btc-address <arg> Set bitcoin target address when solo mining to bitcoind
 --btc-sig <arg>     Set signature to add to coinbase when solo mining (optional)
---compac-freq <arg> Set GekkoScience Compac frequency in MHz, range 100-500 (default: 150.0)
 --compact           Use compact display without per device statistics
 --debug|-D          Enable debug output
 --disable-rejecting Automatically disable pools that continually reject shares
 --drillbit-options <arg> Set drillbit options <int|ext>:clock[:clock_divider][:voltage]
 --expiry|-E <arg>   Upper bound on how many seconds after getting work we consider a share from it stale (default: 120)
 --failover-only     Don't leak work to backup pools when primary pool is lagging
---fix-protocol      Do not redirect to stratum protocol from GBT
+--fix-protocol      Do not redirect to a different getwork protocol (eg. stratum)
 --hfa-hash-clock <arg> Set hashfast clock speed (default: 550)
 --hfa-fail-drop <arg> Set how many MHz to drop clockspeed each failure on an overlocked hashfast device (default: 10)
 --hfa-fan <arg>     Set fanspeed percentage for hashfast, single value or range (default: 10-85)
@@ -391,29 +348,6 @@ ASIC only options:
 --avalon4-ntime-offset <arg> Set Avalon4 MM ntime rolling max offset (default: 4)
 --avalon4-aucspeed <arg> Set Avalon4 AUC IIC bus speed (default: 400000)
 --avalon4-aucxdelay <arg> Set Avalon4 AUC IIC xfer read delay, 4800 ~= 1ms (default: 9600)
---avalon7-voltage   Set Avalon7 default core voltage, in millivolts, step: 78
---avalon7-voltage-level Set Avalon7 default level of core voltage, range:[0, 15], step: 1
---avalon7-voltage-offset Set Avalon7 default offset of core voltage, range:[-2, 1], step: 1
---avalon7-freq      Set Avalon7 default frequency, range:[24, 1404], step: 12, example: 500
---avalon7-freq-sel <arg> Set Avalon7 default frequency select, range:[0, 5], step: 1, example: 3 (default: 0)
---avalon7-fan       Set Avalon7 target fan speed, range:[0, 100], step: 1, example: 0-100
---avalon7-temp <arg> Set Avalon7 target temperature, range:[0, 100] (default: 99)
---avalon7-polling-delay <arg> Set Avalon7 polling delay value (ms) (default: 20)
---avalon7-aucspeed <arg> Set AUC3 IIC bus speed (default: 400000)
---avalon7-aucxdelay <arg> Set AUC3 IIC xfer read delay, 4800 ~= 1ms (default: 19200)
---avalon7-smart-speed <arg> Set Avalon7 smart speed, range 0-1. 0 means Disable (default: 1)
---avalon7-th-pass <arg> Set A3212 th pass value (default: 162)
---avalon7-th-fail <arg> Set A3212 th fail value (default: 10921)
---avalon7-th-init <arg> Set A3212 th init value (default: 32767)
---avalon7-th-ms <arg> Set A3212 th ms value (default: 1)
---avalon7-th-timeout <arg> Set A3212 th timeout value (default: 0)
---avalon7-iic-detect Enable Avalon7 detect through iic controller
---avalon7-freqadj-time <arg> Set Avalon7 check interval when run in AVA7_FREQ_TEMPADJ_MODE (default: 60)
---avalon7-delta-temp <arg> Set Avalon7 delta temperature when reset freq in AVA7_FREQ_TEMPADJ_MODE (default: 0)
---avalon7-delta-freq <arg> Set Avalon7 delta freq when adjust freq in AVA7_FREQ_TEMPADJ_MODE (default: 100)
---avalon7-freqadj-temp <arg> Set Avalon7 check temperature when run into AVA7_FREQ_TEMPADJ_MODE (default: 104)
---avalon7-nonce-mask <arg> Set A3212 nonce mask, range 24-32. (default: 31)
---no-avalon7-asic-debug Disable A3212 debug.
 --bab-options <arg> Set BaB options max:def:min:up:down:hz:delay:trf
 --bflsc-overheat <arg> Set overheat temperature where BFLSC devices throttle, 0 to disable (default: 90)
 --bitburner-fury-options <arg> Override avalon-options for BitBurner Fury boards baud:miners:asic:timeout:freq
@@ -422,7 +356,6 @@ ASIC only options:
 --bitmine-a1-options <ref_clk>:<sys_clk>:<spi_clk>:<max_chip>
 --bxf-temp-target <arg> Set target temperature for BXF devices (default: 82)
 --bxm-bits <arg>    Set BXM bits for overclocking (default: 50)
---compac-freq <arg> Set GekkoScience Compac frequency in MHz, range 100-500 (default: 150.0)
 --hfa-hash-clock <arg> Set hashfast clock speed (default: 550)
 --hfa-fail-drop <arg> Set how many MHz to drop clockspeed each failure on an overlocked hashfast device (default: 10)
 --hfa-fan <arg>     Set fanspeed percentage for hashfast, single value or range (default: 10-85)
@@ -515,8 +448,8 @@ On OSX, like Linux, no drivers need to be installed. However some devices
 like the bitfury USB sticks automatically load a driver thinking they're a
 modem and the driver needs to be unloaded for cgminer to work:
 
- sudo kextunload -b com.apple.driver.AppleUSBCDC
- sudo kextunload -b com.apple.driver.AppleUSBCDCACMData
+sudo kextunload -b com.apple.driver.AppleUSBCDC
+sudo kextunload -b com.apple.driver.AppleUSBCDCACMData
 
 There may be a limit to the number of USB devices that you are allowed to start.
 The following set of commands, followed by a reboot will increase that:
@@ -530,7 +463,7 @@ The following set of commands, followed by a reboot will increase that:
 Some devices need superuser access to mine on them so cgminer may need to
 be started with sudo
 i.e.:
- sudo cgminer <insert commands here>
+sudo cgminer <insert commands here>
 
 
 ---
@@ -1037,8 +970,8 @@ linux is the primary development platform and is virtually guaranteed to be
 more stable.
 
 Q: My network gets slower and slower and then dies for a minute?
-A; Try the --net-delay option if you are on a GBT server. This does nothing
-with stratum mining.
+A; Try the --net-delay option if you are on a getwork or GBT server. This does
+nothing with stratum mining.
 
 Q: How do I tune for p2pool?
 A: It is also recommended to use --failover-only since the work is effectively
@@ -1106,9 +1039,9 @@ USB on any hardware are the following:
 --enable-avalon
 --enable-avalon2
 --enable-avalon4
---enable-avalon7
 --enable-bflsc
 --enable-bitfury
+--enable-blockerupter
 --enable-cointerra
 --enable-drillbit
 --enable-hashfast
