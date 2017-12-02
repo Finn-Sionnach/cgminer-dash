@@ -78,7 +78,7 @@ unsigned char TempChipAddr[BITMAIN_MAX_SUPPORT_TEMP_CHIP_NUM] = {0, 0, 0};  // r
 int opt_bitmain_fan_pwm = 30;       // if not control fan speed according to temperature, use this parameter to control fan speed
 bool opt_bitmain_fan_ctrl = false;  // false: control fan speed according to temperature; true: use opt_bitmain_fan_pwm to control fan speed
 int opt_bitmain_DASH_freq = 100;
-int opt_bitmain_DASH_voltage = 176;
+int opt_bitmain_DASH_voltage =176 ;
 int8_t opt_bitmain_DASH_core_temp = 2;
 int last_temperature = 0, temp_highest = 0;
 
@@ -2827,13 +2827,13 @@ void check_fan_speed(void)
     {
         if ( ((pos = strstr(buffer, FAN0)) != 0) && (strstr(buffer, "gpiolib") != 0 ) )
         {
-            applog(LOG_DEBUG, "find fan1.");
+            applog(LOG_ERR, "find fan1.");
             fan0SpeedHist = fan0SpeedCur = getNum(buffer);
         }
 
         if (((pos = strstr(buffer, FAN1)) != 0) && (strstr(buffer, "gpiolib") != 0 ))
         {
-            applog(LOG_DEBUG, "find fan2.");
+            applog(LOG_ERR, "find fan2.");
             fan1SpeedHist = fan1SpeedCur = getNum(buffer);
         }
     }
@@ -2850,7 +2850,7 @@ void check_fan_speed(void)
         {
             if ( ((pos = strstr(buffer, FAN0)) != 0) && (strstr(buffer, "gpiolib") != 0 ) )
             {
-                applog(LOG_DEBUG, "find fan1");
+                applog(LOG_ERR, "find fan1");
                 fan0SpeedCur = getNum(buffer);
                 if (fan0SpeedHist > fan0SpeedCur)
                 {
@@ -2862,7 +2862,7 @@ void check_fan_speed(void)
                 }
                 fan0Speed = fan0Speed * 60 / 2 * 2; // 60: 1 minute; 2: 1 interrupt has 2 edges; FANINT: check fan speed every FANINT senconds
                 fan0SpeedHist = fan0SpeedCur;
-                applog(LOG_DEBUG, "fan1Speed = %d", fan0Speed);
+                applog(LOG_ERR, "fan1Speed = %d", fan0Speed);
                 if( fan0Speed > FAN1_MAX_SPEED * FAN_SPEED_OK_PERCENT)
                 {
                     fan0Speed_ok++;
@@ -2871,7 +2871,7 @@ void check_fan_speed(void)
 
             if (((pos = strstr(buffer, FAN1)) != 0) && (strstr(buffer, "gpiolib") != 0 ))
             {
-                applog(LOG_DEBUG, "find fan2");
+                applog(LOG_ERR, "find fan2");
                 fan1SpeedCur = getNum(buffer);
                 if (fan1SpeedHist > fan1SpeedCur)
                 {
@@ -2884,7 +2884,7 @@ void check_fan_speed(void)
                 fan1SpeedHist = fan1SpeedCur;
                 fan1Speed = fan1Speed * 60 / 2 * 2; // 60: 1 minute; 2: 1 interrupt has 2 edges; FANINT: check fan speed every FANINT senconds
                 fan1SpeedHist = fan1SpeedCur;
-                applog(LOG_DEBUG, "fan2Speed = %d", fan1Speed);
+                applog(LOG_ERR, "fan2Speed = %d", fan1Speed);
                 if( fan1Speed > FAN2_MAX_SPEED * FAN_SPEED_OK_PERCENT)
                 {
                     fan1Speed_ok++;
