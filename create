@@ -1,0 +1,1 @@
+CC=/home/dan/lin/bin/arm-linux-gnueabihf-gcc CCLD=/home/dan/lin/bin/arm-linux-gnueabihf-ld CFLAGS="-O2 -Wall -march=armv7" ./configure --with-system-libusb --without-curses --enable-bitmain-D1 --disable-libcurl --host arm

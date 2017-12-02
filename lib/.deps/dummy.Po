@@ -1,0 +1,4 @@
+dummy.o: dummy.c \
+ /home/dan/lin/arm-linux-gnueabihf/libc/usr/include/stdc-predef.h
+
+/home/dan/lin/arm-linux-gnueabihf/libc/usr/include/stdc-predef.h:
