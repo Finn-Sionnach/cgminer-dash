@@ -41,7 +41,7 @@
 
 /****************** about D1 miner end *******************/
 
-#define JZ4775
+//#define JZ4775
 
 #ifdef JZ4775
 #define FAN0                    "84:"   // front fan

@@ -2811,6 +2811,8 @@ void check_fan_speed(void)
     char buffer[256] = "";
     char* pos = NULL;
     FILE* fanpfd = fopen(PROCFILENAME, "r");
+    char* test = NULL;
+    char* test1 = NULL;
 
     if(fanpfd == NULL)
     {
@@ -2823,14 +2825,15 @@ void check_fan_speed(void)
 
     fseek(fanpfd, 0, SEEK_SET);
 
+    applog(LOG_ERR, "b4beforefind fan1.");
     while(fgets(buffer, 256, fanpfd))
     {
-        if ( ((pos = strstr(buffer, FAN0)) != 0) && (strstr(buffer, "gpiolib") != 0 ) )
+        applog(LOG_ERR, "beforefind fan1.");
+        if ( ((pos = strstr(buffer, FAN0)) != 0) && (strstr(buffer, "gpiolib") != 0) )
         {
             applog(LOG_ERR, "find fan1.");
             fan0SpeedHist = fan0SpeedCur = getNum(buffer);
         }
-
         if (((pos = strstr(buffer, FAN1)) != 0) && (strstr(buffer, "gpiolib") != 0 ))
         {
             applog(LOG_ERR, "find fan2.");
