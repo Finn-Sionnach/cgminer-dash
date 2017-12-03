@@ -78,7 +78,7 @@ unsigned char TempChipAddr[BITMAIN_MAX_SUPPORT_TEMP_CHIP_NUM] = {0, 0, 0};  // r
 int opt_bitmain_fan_pwm = 30;       // if not control fan speed according to temperature, use this parameter to control fan speed
 bool opt_bitmain_fan_ctrl = false;  // false: control fan speed according to temperature; true: use opt_bitmain_fan_pwm to control fan speed
 int opt_bitmain_DASH_freq = 100;
-int opt_bitmain_DASH_voltage =176 ;
+int opt_bitmain_DASH_voltage =50;
 int8_t opt_bitmain_DASH_core_temp = 2;
 int last_temperature = 0, temp_highest = 0;
 
@@ -2825,10 +2825,8 @@ void check_fan_speed(void)
 
     fseek(fanpfd, 0, SEEK_SET);
 
-    applog(LOG_ERR, "b4beforefind fan1.");
     while(fgets(buffer, 256, fanpfd))
     {
-        applog(LOG_ERR, "beforefind fan1.");
         if ( ((pos = strstr(buffer, FAN0)) != 0) && (strstr(buffer, "gpiolib") != 0) )
         {
             applog(LOG_ERR, "find fan1.");
@@ -2962,7 +2960,13 @@ void set_PWM_according_to_temperature(void)
 
     temp_change = temp_highest - last_temperature;
 
-    if(temp_highest >= MAX_FAN_TEMP || temp_highest == 0)
+    if(temp_highest == 0){
+        set_PWM(50);
+        dev.fan_pwm = 50;
+        return;
+    }
+
+    if(temp_highest >= MAX_FAN_TEMP ) //|| temp_highest == 0)
     {
         set_PWM(MAX_PWM_PERCENT);
         dev.fan_pwm = MAX_PWM_PERCENT;
@@ -3020,7 +3024,7 @@ int bitmain_DASH_init(struct bitmain_DASH_info *info)
     dev.addrInterval = 1;
     // start fans
 
-    set_PWM(100);
+    set_PWM(40);
     check_fan_speed();
 
     // check parameters
@@ -3052,6 +3056,7 @@ int bitmain_DASH_init(struct bitmain_DASH_info *info)
     */
 
     // check chain
+
     check_chain(info);
 
     // init i2c
@@ -3106,6 +3111,10 @@ int bitmain_DASH_init(struct bitmain_DASH_info *info)
 
     //set core number
     dev.corenum = BM1760_CORE_NUM;
+
+    //dev.voltage = opt_bitmain_DASH_voltage;
+    every_chain_set_voltage_PIC16F1704_new(opt_bitmain_DASH_voltage);
+
 
     // set frequency
     if(config_parameter.frequency_eft)
@@ -3219,7 +3228,7 @@ int bitmain_DASH_reinit(struct bitmain_DASH_info *info)
     applog(LOG_WARNING, "%s", __FUNCTION__);
 
     // start fans
-    set_PWM(100);
+    set_PWM(40);
     check_fan_speed();
 
     // init the work queue which stores the latest work that sent to hash boards
@@ -3236,6 +3245,10 @@ int bitmain_DASH_reinit(struct bitmain_DASH_info *info)
     clear_register_value_buf();
 
     cgsleep_ms(100);
+
+    //set voltage??
+
+    every_chain_set_voltage_PIC16F1704_new(opt_bitmain_DASH_voltage);
 
     // set frequency
     if(config_parameter.frequency_eft)
@@ -4763,7 +4776,8 @@ static bool bitmain_DASH_prepare(struct thr_info *thr)
         .fan_pwm_percent            = opt_bitmain_fan_pwm,
         .temperature                = 80,
         .frequency                  = opt_bitmain_DASH_freq,
-        .voltage                    = {0x07,0x25},
+        .voltage                    = opt_bitmain_DASH_voltage,
+        //.voltage                    = {0x07,0x25},
         .chain_check_time_integer   = 10,
         .chain_check_time_fractions = 10,
         .timeout_data_integer       = 0,
