@@ -285,7 +285,7 @@ struct init_config
     uint8_t     fan_pwm_percent;
     uint8_t     temperature;
     uint16_t    frequency;
-    uint8_t     voltage[2];
+    uint16_t    voltage;
     uint8_t     chain_check_time_integer;
     uint8_t     chain_check_time_fractions;
     uint8_t     timeout_data_integer;
@@ -386,6 +386,9 @@ struct all_parameters
     uint8_t     diff;
     uint8_t     fan_eft;
     uint8_t     fan_pwm;
+
+    uint16_t    voltage;
+    char        voltage_t[10];
 
     uint16_t    frequency;
     char        frequency_t[10];

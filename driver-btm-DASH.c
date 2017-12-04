@@ -78,7 +78,7 @@ unsigned char TempChipAddr[BITMAIN_MAX_SUPPORT_TEMP_CHIP_NUM] = {0, 0, 0};  // r
 int opt_bitmain_fan_pwm = 30;       // if not control fan speed according to temperature, use this parameter to control fan speed
 bool opt_bitmain_fan_ctrl = false;  // false: control fan speed according to temperature; true: use opt_bitmain_fan_pwm to control fan speed
 int opt_bitmain_DASH_freq = 100;
-int opt_bitmain_DASH_voltage =50;
+int opt_bitmain_DASH_voltage = 176;
 int8_t opt_bitmain_DASH_core_temp = 2;
 int last_temperature = 0, temp_highest = 0;
 
@@ -3011,7 +3011,7 @@ int bitmain_DASH_init(struct bitmain_DASH_info *info)
 {
     struct init_config config = info->DASH_config;
     struct init_config config_parameter;
-    uint16_t crc = 0, freq = 0;
+    uint16_t crc = 0, freq = 0, volt = 0;
     unsigned char which_chain = 0;
     int i = 0,check_asic_times = 0, ret = 0;
     bool check_asic_fail = false;
@@ -3024,7 +3024,7 @@ int bitmain_DASH_init(struct bitmain_DASH_info *info)
     dev.addrInterval = 1;
     // start fans
 
-    set_PWM(40);
+    set_PWM(30);
     check_fan_speed();
 
     // check parameters
@@ -3112,9 +3112,28 @@ int bitmain_DASH_init(struct bitmain_DASH_info *info)
     //set core number
     dev.corenum = BM1760_CORE_NUM;
 
-    //dev.voltage = opt_bitmain_DASH_voltage;
-    every_chain_set_voltage_PIC16F1704_new(opt_bitmain_DASH_voltage);
+    //set voltage
 
+    //dev.voltage = opt_bitmain_DASH_voltage;
+    //every_chain_set_voltage_PIC16F1704_new(opt_bitmain_DASH_voltage);
+    if(config_parameter.voltage_eft)
+    {
+        dev.voltage = config_parameter.voltage;
+        if(dev.voltage == 0)
+        {
+            //set to defualt voltage
+            freq = 176;
+            dev.voltage = freq;
+            every_chain_set_voltage_PIC16F1704_new(dev.voltage);
+            //every_chain_get_PIC16F1704_voltage_new(&volt);
+            //set_voltage(dev.volt);
+        }
+        else
+        {
+            every_chain_set_voltage_PIC16F1704_new(dev.voltage);
+        }
+        sprintf(dev.voltage_t,"%u",dev.voltage);
+    }
 
     // set frequency
     if(config_parameter.frequency_eft)
@@ -3228,7 +3247,7 @@ int bitmain_DASH_reinit(struct bitmain_DASH_info *info)
     applog(LOG_WARNING, "%s", __FUNCTION__);
 
     // start fans
-    set_PWM(40);
+    set_PWM(30);
     check_fan_speed();
 
     // init the work queue which stores the latest work that sent to hash boards
@@ -3247,8 +3266,12 @@ int bitmain_DASH_reinit(struct bitmain_DASH_info *info)
     cgsleep_ms(100);
 
     //set voltage??
-
-    every_chain_set_voltage_PIC16F1704_new(opt_bitmain_DASH_voltage);
+    if(config_parameter.voltage_eft)
+    {
+        dev.voltage = config_parameter.voltage;
+        every_chain_set_voltage_PIC16F1704_new(dev.voltage);
+        sprintf(dev.voltage_t,"%u",dev.voltage);
+    }
 
     // set frequency
     if(config_parameter.frequency_eft)
