@@ -2961,8 +2961,8 @@ void set_PWM_according_to_temperature(void)
     temp_change = temp_highest - last_temperature;
 
     if(temp_highest == 0){
-        set_PWM(50);
-        dev.fan_pwm = 50;
+        set_PWM(30);
+        dev.fan_pwm = 30;
         return;
     }
 
