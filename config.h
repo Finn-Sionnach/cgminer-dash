@@ -23,7 +23,7 @@
 #define CGMINER_MINOR_SUBVERSION 0
 
 /* Minor version */
-#define CGMINER_MINOR_VERSION 9
+#define CGMINER_MINOR_VERSION 10
 
 /* Path to cgminer install */
 #define CGMINER_PREFIX "/usr/local/bin"

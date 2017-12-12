@@ -5170,7 +5170,7 @@ _ACEOF
 
 
 cat >>confdefs.h <<_ACEOF
-#define CGMINER_MINOR_VERSION 9
+#define CGMINER_MINOR_VERSION 10
 _ACEOF
 
 
