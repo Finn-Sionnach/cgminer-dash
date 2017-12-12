@@ -2961,8 +2961,8 @@ void set_PWM_according_to_temperature(void)
     temp_change = temp_highest - last_temperature;
 
     if(temp_highest == 0){
-        set_PWM(30);
-        dev.fan_pwm = 30;
+        set_PWM(20);
+        dev.fan_pwm = 20;
         return;
     }
 
@@ -4108,7 +4108,7 @@ void *check_miner_status(void *arg)
         // set fan pwm
         if(stop)
         {
-            set_PWM(MAX_PWM_PERCENT);
+            set_PWM(40);
         }
         else
         {

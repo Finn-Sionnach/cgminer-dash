@@ -26,14 +26,14 @@
 #define MIN_FAN_NUM                     1
 #define FAN_WANN_SPEED                  6600
 #define FAN1_MAX_SPEED                  6000
-#define FAN2_MAX_SPEED                  4300
+#define FAN2_MAX_SPEED                  4900
 #define FAN_SPEED_OK_PERCENT            (0.35)
 #define MIN_PWM_PERCENT                 20
 #define MAX_PWM_PERCENT                 100
 #define TEMP_INTERVAL                   2
 #define MAX_TEMP                        85
 #define MAX_FAN_TEMP                    80
-#define MIN_FAN_TEMP                    50
+#define MIN_FAN_TEMP                    65
 #define PWM_ADJUST_FACTOR               ((100 - MIN_PWM_PERCENT)/(MAX_FAN_TEMP - MIN_FAN_TEMP))
 #define FANINT                          1
 #define PROCFILENAME                    "/proc/interrupts"
