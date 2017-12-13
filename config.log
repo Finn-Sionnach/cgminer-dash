@@ -595,7 +595,7 @@ configure: failed program was:
 | #define _POSIX_PTHREAD_SEMANTICS 1
 | #define _TANDEM_SOURCE 1
 | #define CGMINER_MAJOR_VERSION 4
-| #define CGMINER_MINOR_VERSION 9
+| #define CGMINER_MINOR_VERSION 10
 | #define CGMINER_MINOR_SUBVERSION 0
 | #define HAVE_DLFCN_H 1
 | #define LT_OBJDIR ".libs/"
@@ -750,7 +750,7 @@ configure: failed program was:
 | #define _POSIX_PTHREAD_SEMANTICS 1
 | #define _TANDEM_SOURCE 1
 | #define CGMINER_MAJOR_VERSION 4
-| #define CGMINER_MINOR_VERSION 9
+| #define CGMINER_MINOR_VERSION 10
 | #define CGMINER_MINOR_SUBVERSION 0
 | #define HAVE_DLFCN_H 1
 | #define LT_OBJDIR ".libs/"
@@ -855,7 +855,7 @@ configure: failed program was:
 | #define _POSIX_PTHREAD_SEMANTICS 1
 | #define _TANDEM_SOURCE 1
 | #define CGMINER_MAJOR_VERSION 4
-| #define CGMINER_MINOR_VERSION 9
+| #define CGMINER_MINOR_VERSION 10
 | #define CGMINER_MINOR_SUBVERSION 0
 | #define HAVE_DLFCN_H 1
 | #define LT_OBJDIR ".libs/"
@@ -941,7 +941,7 @@ configure: failed program was:
 | #define _POSIX_PTHREAD_SEMANTICS 1
 | #define _TANDEM_SOURCE 1
 | #define CGMINER_MAJOR_VERSION 4
-| #define CGMINER_MINOR_VERSION 9
+| #define CGMINER_MINOR_VERSION 10
 | #define CGMINER_MINOR_SUBVERSION 0
 | #define HAVE_DLFCN_H 1
 | #define LT_OBJDIR ".libs/"
@@ -1031,7 +1031,7 @@ configure: failed program was:
 | #define _POSIX_PTHREAD_SEMANTICS 1
 | #define _TANDEM_SOURCE 1
 | #define CGMINER_MAJOR_VERSION 4
-| #define CGMINER_MINOR_VERSION 9
+| #define CGMINER_MINOR_VERSION 10
 | #define CGMINER_MINOR_SUBVERSION 0
 | #define HAVE_DLFCN_H 1
 | #define LT_OBJDIR ".libs/"
@@ -1173,7 +1173,7 @@ configure: failed program was:
 | #define _POSIX_PTHREAD_SEMANTICS 1
 | #define _TANDEM_SOURCE 1
 | #define CGMINER_MAJOR_VERSION 4
-| #define CGMINER_MINOR_VERSION 9
+| #define CGMINER_MINOR_VERSION 10
 | #define CGMINER_MINOR_SUBVERSION 0
 | #define HAVE_DLFCN_H 1
 | #define LT_OBJDIR ".libs/"
@@ -1319,7 +1319,7 @@ configure: failed program was:
 | #define _POSIX_PTHREAD_SEMANTICS 1
 | #define _TANDEM_SOURCE 1
 | #define CGMINER_MAJOR_VERSION 4
-| #define CGMINER_MINOR_VERSION 9
+| #define CGMINER_MINOR_VERSION 10
 | #define CGMINER_MINOR_SUBVERSION 0
 | #define HAVE_DLFCN_H 1
 | #define LT_OBJDIR ".libs/"
@@ -2023,7 +2023,7 @@ version_info='13:0:9'
 #define _POSIX_PTHREAD_SEMANTICS 1
 #define _TANDEM_SOURCE 1
 #define CGMINER_MAJOR_VERSION 4
-#define CGMINER_MINOR_VERSION 9
+#define CGMINER_MINOR_VERSION 10
 #define CGMINER_MINOR_SUBVERSION 0
 #define HAVE_DLFCN_H 1
 #define LT_OBJDIR ".libs/"
