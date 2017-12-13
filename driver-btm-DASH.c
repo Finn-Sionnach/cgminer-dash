@@ -82,6 +82,9 @@ int opt_bitmain_DASH_voltage = 176;
 int8_t opt_bitmain_DASH_core_temp = 2;
 int last_temperature = 0, temp_highest = 0;
 
+int opt_bitmain_DASH_fan_min_temp= 65;
+int opt_bitmain_DASH_fan_max_temp= 80;
+
 struct all_parameters dev;
 struct thr_info *pic_heart_beat;
 struct thr_info *scan_reg_id;

@@ -396,6 +396,8 @@ extern int opt_bitmain_fan_pwm;     // if not control fan speed according to tem
 extern bool opt_bitmain_fan_ctrl;   // false: control fan speed according to temperature; true: use opt_bitmain_fan_pwm to control fan speed
 extern int opt_bitmain_DASH_freq;
 extern int opt_bitmain_DASH_voltage;
+extern int opt_bitmain_DASH_fan_min_temp;
+extern int opt_bitmain_DASH_fan_max_temp;
 extern int8_t opt_bitmain_DASH_core_temp;
 extern int last_temperature, temp_highest;
 
@@ -1532,6 +1534,12 @@ static struct opt_table opt_config_table[] =
     OPT_WITH_ARG("--bitmain-voltage",
                  set_int_0_to_9999,opt_show_intval, &opt_bitmain_DASH_voltage,
                  "Set voltage"),
+    OPT_WITH_ARG("--bitmain-fan-min-temp",
+                 set_int_0_to_9999,opt_show_intval, &opt_bitmain_DASH_fan_max_temp,
+                 "Set fan min temp"),
+    OPT_WITH_ARG("--bitmain-fan-max-temp",
+                 set_int_0_to_9999,opt_show_intval, &opt_bitmain_DASH_fan_min_temp,
+                 "Set fan max temp"),
 #endif
 
 #ifdef USE_BITMAIN_C5
