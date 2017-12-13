@@ -32,8 +32,10 @@
 #define MAX_PWM_PERCENT                 100
 #define TEMP_INTERVAL                   2
 #define MAX_TEMP                        85
-#define MAX_FAN_TEMP                    opt_bitmain_DASH_fan_max_temp
-#define MIN_FAN_TEMP                    opt_bitmain_DASH_fan_min_temp
+#define MAX_FAN_TEMP                    80
+#define MIN_FAN_TEMP                    65
+//#define MAX_FAN_TEMP                    opt_bitmain_DASH_fan_max_temp
+//#define MIN_FAN_TEMP                    opt_bitmain_DASH_fan_min_temp
 #define PWM_ADJUST_FACTOR               ((100 - MIN_PWM_PERCENT)/(MAX_FAN_TEMP - MIN_FAN_TEMP))
 #define FANINT                          1
 #define PROCFILENAME                    "/proc/interrupts"

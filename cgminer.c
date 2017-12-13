@@ -1535,10 +1535,10 @@ static struct opt_table opt_config_table[] =
                  set_int_0_to_9999,opt_show_intval, &opt_bitmain_DASH_voltage,
                  "Set voltage"),
     OPT_WITH_ARG("--bitmain-fan-min-temp",
-                 set_int_0_to_9999,opt_show_intval, &opt_bitmain_DASH_fan_max_temp,
+                 set_int_0_to_9999,opt_show_intval, &opt_bitmain_DASH_fan_min_temp,
                  "Set fan min temp"),
     OPT_WITH_ARG("--bitmain-fan-max-temp",
-                 set_int_0_to_9999,opt_show_intval, &opt_bitmain_DASH_fan_min_temp,
+                 set_int_0_to_9999,opt_show_intval, &opt_bitmain_DASH_fan_max_temp,
                  "Set fan max temp"),
 #endif
 
