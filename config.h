@@ -408,7 +408,7 @@
 /* #undef USE_USBUTILS */
 
 /* Version number of package */
-#define VERSION "4.9.0"
+#define VERSION "4.10.0"
 
 /* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
    'wchar_t'. */

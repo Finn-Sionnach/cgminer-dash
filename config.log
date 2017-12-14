@@ -159,7 +159,7 @@ configure: failed program was:
 | #define PACKAGE_BUGREPORT "support@bitmain.com"
 | #define PACKAGE_URL ""
 | #define PACKAGE "cgminer"
-| #define VERSION "4.9.0"
+| #define VERSION "4.10.0"
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
 configure:4768: result: /home/dan/lin/bin/arm-linux-gnueabihf-gcc -E
@@ -180,7 +180,7 @@ configure: failed program was:
 | #define PACKAGE_BUGREPORT "support@bitmain.com"
 | #define PACKAGE_URL ""
 | #define PACKAGE "cgminer"
-| #define VERSION "4.9.0"
+| #define VERSION "4.10.0"
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
 configure:4831: checking for grep that handles long lines and -e
@@ -243,7 +243,7 @@ configure: failed program was:
 | #define PACKAGE_BUGREPORT "support@bitmain.com"
 | #define PACKAGE_URL ""
 | #define PACKAGE "cgminer"
-| #define VERSION "4.9.0"
+| #define VERSION "4.10.0"
 | #define STDC_HEADERS 1
 | #define HAVE_SYS_TYPES_H 1
 | #define HAVE_SYS_STAT_H 1
@@ -306,7 +306,7 @@ configure: failed program was:
 | #define PACKAGE_BUGREPORT "support@bitmain.com"
 | #define PACKAGE_URL ""
 | #define PACKAGE "cgminer"
-| #define VERSION "4.9.0"
+| #define VERSION "4.10.0"
 | #define STDC_HEADERS 1
 | #define HAVE_SYS_TYPES_H 1
 | #define HAVE_SYS_STAT_H 1
@@ -578,7 +578,7 @@ configure: failed program was:
 | #define PACKAGE_BUGREPORT "support@bitmain.com"
 | #define PACKAGE_URL ""
 | #define PACKAGE "cgminer"
-| #define VERSION "4.9.0"
+| #define VERSION "4.10.0"
 | #define STDC_HEADERS 1
 | #define HAVE_SYS_TYPES_H 1
 | #define HAVE_SYS_STAT_H 1
@@ -733,7 +733,7 @@ configure: failed program was:
 | #define PACKAGE_BUGREPORT "support@bitmain.com"
 | #define PACKAGE_URL ""
 | #define PACKAGE "cgminer"
-| #define VERSION "4.9.0"
+| #define VERSION "4.10.0"
 | #define STDC_HEADERS 1
 | #define HAVE_SYS_TYPES_H 1
 | #define HAVE_SYS_STAT_H 1
@@ -838,7 +838,7 @@ configure: failed program was:
 | #define PACKAGE_BUGREPORT "support@bitmain.com"
 | #define PACKAGE_URL ""
 | #define PACKAGE "cgminer"
-| #define VERSION "4.9.0"
+| #define VERSION "4.10.0"
 | #define STDC_HEADERS 1
 | #define HAVE_SYS_TYPES_H 1
 | #define HAVE_SYS_STAT_H 1
@@ -924,7 +924,7 @@ configure: failed program was:
 | #define PACKAGE_BUGREPORT "support@bitmain.com"
 | #define PACKAGE_URL ""
 | #define PACKAGE "cgminer"
-| #define VERSION "4.9.0"
+| #define VERSION "4.10.0"
 | #define STDC_HEADERS 1
 | #define HAVE_SYS_TYPES_H 1
 | #define HAVE_SYS_STAT_H 1
@@ -1014,7 +1014,7 @@ configure: failed program was:
 | #define PACKAGE_BUGREPORT "support@bitmain.com"
 | #define PACKAGE_URL ""
 | #define PACKAGE "cgminer"
-| #define VERSION "4.9.0"
+| #define VERSION "4.10.0"
 | #define STDC_HEADERS 1
 | #define HAVE_SYS_TYPES_H 1
 | #define HAVE_SYS_STAT_H 1
@@ -1156,7 +1156,7 @@ configure: failed program was:
 | #define PACKAGE_BUGREPORT "support@bitmain.com"
 | #define PACKAGE_URL ""
 | #define PACKAGE "cgminer"
-| #define VERSION "4.9.0"
+| #define VERSION "4.10.0"
 | #define STDC_HEADERS 1
 | #define HAVE_SYS_TYPES_H 1
 | #define HAVE_SYS_STAT_H 1
@@ -1302,7 +1302,7 @@ configure: failed program was:
 | #define PACKAGE_BUGREPORT "support@bitmain.com"
 | #define PACKAGE_URL ""
 | #define PACKAGE "cgminer"
-| #define VERSION "4.9.0"
+| #define VERSION "4.10.0"
 | #define STDC_HEADERS 1
 | #define HAVE_SYS_TYPES_H 1
 | #define HAVE_SYS_STAT_H 1
@@ -1919,7 +1919,7 @@ STDDEF_H=''
 STDINT_H=''
 STRIP='strip'
 UNDEFINE_STRTOK_R='0'
-VERSION='4.9.0'
+VERSION='4.10.0'
 VMAJ='4'
 WANT_CRC16_FALSE='#'
 WANT_CRC16_TRUE=''
@@ -2006,7 +2006,7 @@ version_info='13:0:9'
 #define PACKAGE_BUGREPORT "support@bitmain.com"
 #define PACKAGE_URL ""
 #define PACKAGE "cgminer"
-#define VERSION "4.9.0"
+#define VERSION "4.10.0"
 #define STDC_HEADERS 1
 #define HAVE_SYS_TYPES_H 1
 #define HAVE_SYS_STAT_H 1
